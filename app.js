@@ -27,9 +27,17 @@ const tooglePlay =()=>{
 video.addEventListener('ended',showPlayIcon)
 
 // Progress Bar ---------------------------------- //
+// Calculate didplay time format
+const displayTime =(time)=>{
+    const minutes =  Math.floor(time / 60)
+    let seconds = Math.floor(time % 60)
+    seconds = seconds > 9 ? seconds: `0${seconds}`;
+    return `${minutes}:${seconds}`
+}
 const updateProgress =()=>{
     progressBar.style.width =`${(video.currentTime / video.duration) *100}%`
-    
+    currentTime.textContent = `${displayTime(video.currentTime)} /`
+    duration.textContent = ` ${displayTime(video.duration)}`
 }
 
 
