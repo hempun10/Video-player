@@ -27,7 +27,10 @@ const tooglePlay =()=>{
 video.addEventListener('ended',showPlayIcon)
 
 // Progress Bar ---------------------------------- //
-
+const updateProgress =()=>{
+    progressBar.style.width =`${(video.currentTime / video.duration) *100}%`
+    
+}
 
 
 // Volume Controls --------------------------- //
@@ -44,3 +47,5 @@ video.addEventListener('ended',showPlayIcon)
 // Even Listners
 playBtn.addEventListener('click',tooglePlay)
 video.addEventListener('click',tooglePlay)
+video.addEventListener('timeupdate',updateProgress)
+video.addEventListener('canplay',updateProgress)
