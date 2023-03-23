@@ -40,6 +40,15 @@ const updateProgress =()=>{
     duration.textContent = ` ${displayTime(video.duration)}`
 }
 
+// Click to seek within the video
+const setProgress =(e)=>{
+    const newTime = e.offsetX / progressRange.offsetWidth;
+    // Update Progress Bar
+    progressBar.style.width = `${newTime * 100}%`
+    // Update Cureent time of video
+    video.currentTime = newTime * video.duration;
+}
+
 
 // Volume Controls --------------------------- //
 
@@ -57,3 +66,4 @@ playBtn.addEventListener('click',tooglePlay)
 video.addEventListener('click',tooglePlay)
 video.addEventListener('timeupdate',updateProgress)
 video.addEventListener('canplay',updateProgress)
+progressRange.addEventListener('click', setProgress)
