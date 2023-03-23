@@ -8,6 +8,7 @@ const video = document.querySelector('video'),
       currentTime = document.querySelector('.time-elapsed'),
       duration = document.querySelector('.time-duration'),
       speed = document.querySelector('.player-speed'),
+      player = document.querySelector('.player'),
       fullscreenBtn = document.querySelector('.fullscreen');
 
 // Play & Pause ----------------------------------- //
@@ -98,14 +99,46 @@ volumeIcon.addEventListener('click',toggleMute)
 
 // Change Playback Speed -------------------- //
 const changeSpeed =()=>{
+    // Toogle current playbackspeed to selected option value
     video.playbackRate = speed.value;
 }
-
-
 // Fullscreen ------------------------------- //
 
+/* View in fullscreen */
+function openFullscreen(elem) {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+      elem.msRequestFullscreen();
+    }
+    video.classList.add('video-fullscreen')
+  }
+  
+  /* Close fullscreen */
+  function closeFullscreen() {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+      document.msExitFullscreen();
+    }
+    video.classList.remove('video-fullscreen')
+  }
+  
+let fullscreen = false;
+const toggleFullScreen =()=>{
+    if(!fullscreen){
+        openFullscreen(player)
+    }else{
+        closeFullscreen()
+    }
+    fullscreen = !fullscreen
+}
 
-// Even Listners
+// Event Listners
 playBtn.addEventListener('click',tooglePlay)
 video.addEventListener('click',tooglePlay)
 video.addEventListener('timeupdate',updateProgress)
@@ -113,3 +146,4 @@ video.addEventListener('canplay',updateProgress)
 progressRange.addEventListener('click', setProgress)
 volumeRange.addEventListener('click',changeVolume)
 speed.addEventListener('change',changeSpeed)
+fullscreenBtn.addEventListener('click',toggleFullScreen)
