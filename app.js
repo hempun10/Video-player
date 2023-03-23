@@ -11,12 +11,12 @@ const video = document.querySelector('video'),
 
 // Play & Pause ----------------------------------- //
 const showPlayIcon =()=>{
-    playBtn.classList.replace('bx-pause','bx-play')
+    playBtn.classList.replace('bx-pause-circle','bx-play-circle')
 }
 const tooglePlay =()=>{
     if(video.paused){
         video.play()
-        playBtn.classList.replace('bx-play','bx-pause')
+        playBtn.classList.replace('bx-play-circle','bx-pause-circle')
         playBtn.setAttribute('title','Pause')
     }else{
         video.pause()
@@ -51,6 +51,8 @@ const setProgress =(e)=>{
 
 
 // Volume Controls --------------------------- //
+let lastVolume = 1
+
 
 // Volume Bar
 const changeVolume =(e)=>{
@@ -73,14 +75,27 @@ const changeVolume =(e)=>{
     }else if(volume === 0){
         volumeIcon.classList.add('bx','bx-volume-mute')
     }
+
+    lastVolume = volume
 }
 
-// const volumeMute=(e)=>{
-//     let volume = e.offsetX / volumeRange.offsetWidth
-
-// }
-
-// volumeIcon.addEventListener('click',volumeMute)
+// Mute /Unmute
+const toggleMute =()=>{
+    volumeIcon.className = ''
+    if(video.volume){
+        lastVolume = video.volume
+        video.volume = 0
+        volumeBar.style.width = 0
+        volumeIcon.classList.add('bx','bx-volume-mute')
+        volumeIcon.setAttribute('title','Unmute')
+    }else{
+        video.volume = lastVolume
+        volumeBar.style.width= `${lastVolume * 100}%`
+        volumeIcon.classList.add('bx','bx-volume-full')
+        volumeIcon.setAttribute('title','Mute')
+    }
+}
+volumeIcon.addEventListener('click',toggleMute)
 
 // Change Playback Speed -------------------- //
 
