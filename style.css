@@ -18,7 +18,7 @@
     font-family: Helvetica, sans-serif;
   }
   
-  .fas {
+  .bx {
     color: var(--font-color);
     font-size: 35px;
   }
@@ -35,14 +35,15 @@
   
   video {
     border-radius: 5px;
-  
+    width: 100%;
+    height: auto;
   }
   
   /* Containers */
   .show-controls {
     width: 100%;
     height: 30%;
-    background: dodgerblue;
+    /* background: dodgerblue; */
     z-index: 2;
     position: absolute;
     bottom: 0;
@@ -60,7 +61,13 @@
     z-index: 5;
     display: flex;
     justify-content: space-between;
-  
+    opacity: 0;
+    transition: all .5s ease-out 2s;
+}
+.show-controls:hover .controls-container{
+    opacity: 1;
+    transition: all .2s ease-out ;
+
   }
   
   
@@ -115,8 +122,8 @@
     margin-right: 15px;
   }
   
-  .fa-play:hover,
-  .fa-pause:hover {
+  .bx-play:hover,
+  .bx-pause:hover {
     color: var(--primary-color);
     cursor: pointer;
   }
@@ -207,9 +214,11 @@
   
   /* Media Query: Large Smartphone (Vertical) */
   @media screen and (max-width: 600px) {
-  
-  
-    .fas {
+    .player{
+        min-width: 0;
+        max-width: 95vw;
+    }
+    .bx {
       font-size: 20px;
     }
   
